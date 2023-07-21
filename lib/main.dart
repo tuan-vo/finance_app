@@ -1,8 +1,14 @@
+import 'package:finance_app/data/model/add_data.dart';
+import 'package:flutter/material.dart';
 import 'package:finance_app/pages/home_page.dart';
 import 'package:finance_app/pages/statistics_page.dart';
-import 'package:flutter/material.dart';
+import 'package:finance_app/widgets/bottomnavigation.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
-void main() {
+void main() async {
+  await Hive.initFlutter();
+  Hive.registerAdapter(AdddataAdapter());
+  await Hive.openBox<Add_data>('data');
   runApp(const MyApp());
 }
 
@@ -15,7 +21,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Finance app',
       theme: ThemeData(primaryColor: Colors.blue),
-      home: const Statistics(),
+      home: const Bottom(),
     );
   }
 }
